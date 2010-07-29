@@ -1,0 +1,40 @@
+\usepackage[T1]{fontenc}      % codage des caracteres
+\usepackage[utf8]{inputenc}   % encodage du fichier (utf8 ou latin1)
+\usepackage[francais]{babel}  % langue
+\usepackage{mathpazo}         % selection de la police
+\usepackage{geometry}         % mise en page
+\usepackage{xcolor}           % pour colorer des elements
+
+<% if @graphics %>
+\usepackage{graphicx}         % pour inserer des images
+<% end %>
+
+<% if @math %>
+% math
+\usepackage{amssymb}          % symboles mathematiques
+%\usepackage{amsmath}         % commandes mathematiques
+<% end %>
+
+<% if @pdf %>
+% pdf
+\usepackage{url}              % permet l'insertion d'url
+\usepackage[pdftex]{hyperref} % permet l'hypertexte (rend les liens cliquables)
+<% end %>
+
+<% if @listings %>
+% listings
+\usepackage{listings}         % permet d'inserer du code (multi-langage)
+\usepackage{courier}
+\usepackage{caption}
+<% end %>
+
+<% if @fancyhdr %>
+% fancyhdr
+\usepackage{lastpage}         % derniere page
+\usepackage{fancyhdr}         % en-tete et pied de page
+<% end %>
+
+\usepackage{multicol}
+<% #@packages.each { |p| puts '\usepackage{' << p << '}' } %>
+
+

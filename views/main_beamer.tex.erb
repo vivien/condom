@@ -1,0 +1,50 @@
+% squelette LaTeX genere le <%= $today %>
+% par <%= @author %> a l'aide du script condom
+
+%%%%%%%%%%%%%
+% PREAMBULE %
+%%%%%%%%%%%%%
+
+% http://latex-beamer.sourceforge.net/
+% http://www.tex.ac.uk/tex-archive/macros/latex/contrib/beamer/doc/beameruserguide.pdf
+
+\documentclass{beamer}
+\usetheme{Warsaw}
+
+\input{inc/packages}
+\input{inc/colors}
+\input{inc/commands}
+<% if @listings %>
+\input{inc/lst-conf}                        % fichier de config du paquet listings
+<% end %>
+
+<% if @graphics %>
+\graphicspath{{fig/}}                 % chemins vers les images
+<% end %>
+
+% informations du document
+\author{<%= @author %>}
+\date{Le <%= @date %>}
+\title{<%= @title %>}
+\institute{}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Plan}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%%%%%%%%%
+% CORPS %
+%%%%%%%%%
+
+\begin{document} % debut du document
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\end{document} % fin du document
+%EOF

@@ -1,0 +1,57 @@
+% aide-memoire pour l'insertion d'image sous LaTeX genere le <%= Time.now %>
+% par <%= @author %> a l'aide du script condom
+
+% [!h] est facultatif, ca permet d'indiquer la position de la figure (si possible !)
+% ! = forcer la position
+% h = here
+% t = top
+% b = bottom
+% p = page separee
+% si il y a un probleme avec le positionnement, il peut etre force avec la position [H] (necessite le paquet float)
+
+\begin{figure}[!h]
+\begin{center}
+%\includegraphics[width=5cm]{images/freebsd.png}
+%\includegraphics[height=4cm]{images/freebsd.png}
+\includegraphics{images/freebsd.png}
+\caption{\label{freebsd}Logo de FreeBSD}
+\end{center}
+\end{figure}
+
+% images cotes a cotes avec une seule legende
+% note de bas de page dans un caption (\footnote ne peut pas etre utilise)
+\begin{figure}[!h]
+   \begin{center}
+      \includegraphics[height=2cm]{images/freebsd.png}
+      \hspace{1cm} % espace horizontal (facultatif)
+      \includegraphics[height=2cm]{images/openbsd.png}
+      \hspace{1cm}
+      \includegraphics[height=2cm]{images/netbsd.png}
+   \end{center}
+   \caption{FreeBSD, OpenBSD et NetBSD\protect\footnotemark}
+\end{figure}
+\footnotetext{Tous des systemes d'exploitation libres.}
+
+% images cotes a cotes avec une legende pour chaque
+% si 2 images, mettre comme largeur 0.5\textwidth
+\begin{figure}[!h]
+\begin{minipage}{0.33\textwidth}
+   \begin{center}
+      \includegraphics[height=2cm]{images/freebsd.png}
+      \caption{FreeBSD}
+   \end{center}
+\end{minipage}
+\begin{minipage}{0.33\textwidth}
+   \begin{center}
+      \includegraphics[height=2cm]{images/openbsd.png}
+      \caption{OpenBSD}
+   \end{center}
+\end{minipage}
+\begin{minipage}{0.33\textwidth}
+   \begin{center}
+      \includegraphics[height=2cm]{images/netbsd.png}
+      \caption{NetBSD}
+   \end{center}
+\end{minipage}
+\end{figure}
+

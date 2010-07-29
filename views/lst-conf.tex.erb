@@ -1,0 +1,103 @@
+% fichier de config du paquet listings genere le <%= $today %>
+% par <%= @author %> a l'aide du script condom
+%
+% /!\ ne pas utiliser de caracteres accentues dans les sources (ne gere pas l'utf-8)
+% pour remplacer les lettres accentues : sed -i -e "y/ÉÈÊÇÀÔéèçàôîêûùï/EEECAOeecaoieuui/" fichier
+
+% configuration des listings par defaut :
+\lstset{
+    basicstyle=\footnotesize\ttfamily,
+    %numbers=left,
+    numberstyle=\tiny,
+    %stepnumber=2,
+    numbersep=5pt,
+    tabsize=2,
+    extendedchars=true,
+    breaklines=true,
+    frame=b,
+    keywordstyle=\color{red},
+    %keywordstyle=[1]\textbf,
+    %keywordstyle=[2]\textbf,
+    %keywordstyle=[3]\textbf,
+    %keywordstyle=[4]\textbf,
+    stringstyle=\color{white}\ttfamily,
+    showspaces=false,
+    showtabs=false,
+    xleftmargin=17pt,
+    framexleftmargin=17pt,
+    framexrightmargin=5pt,
+    framexbottommargin=4pt,
+    %backgroundcolor=\color{lightgray},
+    showstringspaces=false
+}
+
+\lstloadlanguages{
+    %[Visual]Basic
+    %Pascal
+    %C
+    %C++
+    %XML
+    %HTML
+    %Java
+}
+%\DeclareCaptionFont{blue}{\color{blue}}
+
+%\captionsetup[lstlisting]{singlelinecheck=false, labelfont={blue}, textfont={blue}}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35, 0.35,0.01}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+
+% configuration des listings C :
+\lstnewenvironment{C}
+{\lstset{%
+    language=C,
+    tabsize=3,
+    xleftmargin=0.75cm,
+    numbers=left,
+    numberstyle=\tiny,
+    extendedchars=true,
+    %frame=single,
+    %frameround=tttt,
+    framexleftmargin=8mm,
+    float,
+    showstringspaces=true,
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    backgroundcolor=\color{mywhite},
+    basicstyle=\color{myblack} \small,
+    keywordstyle=\color{myred} \bfseries,
+    ndkeywordstyle=\color{myred} \bfseries,
+    commentstyle=\color{myblue} \itshape,
+    identifierstyle=\color{myyellow},
+    stringstyle=\color{mygreen}
+}}
+{}
+
+% configuration des listings console :
+\lstnewenvironment{console}
+{\lstset{%
+    language={},
+    numbers=none,
+    extendedchars=true,
+    framexleftmargin=5mm,
+    %float,
+    showstringspaces=false,
+    showspaces=false,
+    showtabs=false,
+    breaklines=false,
+    backgroundcolor=\color{darkgray},
+    basicstyle=\color{white} \scriptsize \ttfamily,
+    keywordstyle=\color{white},
+    ndkeywordstyle=\color{white},
+    commentstyle=\color{white},
+    identifierstyle=\color{white},
+    stringstyle=\color{white}
+}}
+{}
+
+\renewcommand{\lstlistlistingname}{Table des codes sources} % renommer la liste des listings
+
+% un listing depuis un fichier s'importe comme ceci :
+%\lstinputlisting[caption={Legende}, label=lst:label]{emplacement}
+

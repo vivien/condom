@@ -1,0 +1,36 @@
+% raccourcis
+\newcommand{\Cad}{C'est-à-dire~}
+\newcommand{\cad}{c'est-à-dire~}
+\newcommand{\pe}{peut-être~}
+
+\newcommand{\todo}[1]{\bigskip \colorbox{myyellow}{\textcolor{mygrey}{\textsf{\textbf{TODO} #1 }}} \bigskip}
+
+\newcommand{\name}[2]{#1 \textsc{#2}}
+
+<% if @pdf %>
+\newcommand{\email}[1]{\href{mailto:#1}{\textsf{<#1>}}}
+<% end %>
+
+<% if @graphics %>
+% commande pour afficher un lien vers une image
+\newcommand{\figref}[1]{\textsc{Fig.}~\ref{#1} (p.~\pageref{#1})}
+<% end %>
+
+<% if @listings %>
+% commande pour afficher le lien vers un listing :
+\newcommand{\lstref}[1]{{\footnotesize Listing~\ref{#1}, p.~\pageref{#1}}}
+<% end %>
+
+<% if @document_class == "report" %>
+\newcommand{\unnumchap}[1]{%
+    \chapter*{#1}%
+    \addcontentsline{toc}{chapter}{#1}%
+    \chaptermark{#1}%
+}
+
+\newcommand{\unnumpart}[1]{%
+    \part*{#1}%
+    \addcontentsline{toc}{part}{#1}%
+}
+<% end %>
+
