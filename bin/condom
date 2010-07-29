@@ -1,0 +1,58 @@
+#!/usr/bin/ruby -w
+# Command line tool for Condom
+
+# Add ../lib to the load path
+lib_dir = File.join(File.dirname(__FILE__), '..', 'lib')
+$LOAD_PATH.unshift lib_dir unless $LOAD_PATH.include? lib_dir
+
+require 'condom'
+require 'optparse'
+require 'yaml'
+
+ops = Condom::Document::DEFAULT_OPTIONS
+
+ARGV.options do |o|
+  o.banner = "Usage: #{File.basename $0} [options] [destination]\n"
+  o.on_head("Available options:")
+
+  o.on("-m", "--math",                      "Math packages")             { ops[:math] = true }
+  o.on("-l", "--listings",                  "Listings package")          { ops[:listings] = true }
+  o.on("-f", "--fancyhdr",                  "Fancyhdr package")          { ops[:fancyhdr] = true }
+  o.on("-p", "--pdf",                       "PDF config")                { ops[:pdf] = true }
+  o.on("-g", "--graphics",                  "Images packages")           { ops[:graphics] = true }
+  o.on("-n", "--filename=FILENAME", String, "Define a file name")        { |v| ops[:filename] = v }
+  o.on("-a", "--author=AUTHOR",     String, "Define the author")         { |v| ops[:author] = v }
+  o.on("-t", "--title=TITLE",       String, "Define the title")          { |v| ops[:title] = v }
+  o.on("-d", "--date=DATE",         String, "Define the date")           { |v| ops[:date] = v }
+  o.on("-c", "--class=CLASS",       String, "Define the document class") { |v| ops[:document_class] = v }
+  o.on("-P", "--package=PACKAGE",   String, "Add another package")       { |v| ops[:packages].push v }
+  o.on("-v", "--version",                   "Print version")             { puts "Condom lib: version #{Condom::VERSION}" ; exit }
+
+  o.on_tail("destination:\n    " << ops[:outputdir] + (ops[:outputdir] == Dir.getwd ? " (current directory)" : ""))
+end.parse!
+
+if ARGV.length > 1
+  puts "Bad syntax."
+  exit
+elsif ARGV.length == 1
+  ops[:outputdir] = (ARGV.first == ".") ? Dir.getwd : ARGV.first
+end
+
+# Ask for confirmation
+puts ops.to_yaml
+print "\nContinue [Y/n/h]? "
+case STDIN.gets.strip
+when 'Y', 'y', ''
+when 'h'
+  puts ARGV.options
+  exit
+else
+  puts "Cancel."
+  exit
+end
+
+doc = Condom::Document.new(ops)
+doc.create
+
+puts "OK"
+exit

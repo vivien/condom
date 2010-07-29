@@ -1,5 +1,6 @@
-# Makefile genere le <%= $today %>
-# par <%= @author %> a l'aide du script condom
+# Makefile
+# generated on <%= Time.now %>
+# by <%= @author %> with the Condom lib
 
 FINAL_FILENAME=<%= @filename %>
 FILENAME=main
@@ -8,25 +9,25 @@ RUBBER=$(shell which rubber)
 
 all: $(FILENAME).tex
 ifeq ($(RUBBER),)
-    @pdflatex $(FILENAME).tex
-    @pdflatex $(FILENAME).tex
-    @echo -e "\nIl est conseillé d'installer le paquet rubber."
+	@pdflatex $(FILENAME).tex
+	@pdflatex $(FILENAME).tex
+	@echo -e "\nYou should install the rubber package ;)"
 else
-    @$(RUBBER) -d $(FILENAME).tex
+	@$(RUBBER) -d $(FILENAME).tex
 endif
 ifneq ($(FILENAME),$(FINAL_FILENAME))
-    @mv $(FILENAME).pdf $(FINAL_FILENAME).pdf
+	@mv $(FILENAME).pdf $(FINAL_FILENAME).pdf
 endif
 
 view: all
-    @$(VIEWER) $(FINAL_FILENAME).pdf
+	@$(VIEWER) $(FINAL_FILENAME).pdf
 
 clean:
-    @echo "cleaning..."
-    @rm -f *.aux *.log *.out *.toc *.lol<% if @listings %> *.lof<% end %><% if @document_class == "beamer" %> *.nav *.snm<% end %><% unless @document_class == "beamer" %>
-    @rm -f inc/*.aux<% end %>
-    @rm -f $(FINAL_FILENAME).tar
+	@echo "cleaning..."
+	@rm -f *.aux *.log *.out *.toc *.lol<% if @listings %> *.lof<% end %><% if @document_class == "beamer" %> *.nav *.snm<% end %><% unless @document_class == "beamer" %>
+	@rm -f inc/*.aux<% end %>
+	@rm -f $(FINAL_FILENAME).tar
 
 archive: all clean
-    @tar -cf $(FINAL_FILENAME).tar *
-    @echo "archived in $(FINAL_FILENAME).tar"
+	@tar -cf $(FINAL_FILENAME).tar *
+	@echo "archived in $(FINAL_FILENAME).tar"
