@@ -8,8 +8,7 @@ require 'fileutils'
 
 # The Condom module
 module Condom
-  VERSION = 0
-  TODAY = Time.now.strftime("%d %B %Y")
+  VERSION = 2.0
   VIEWS_DIR = File.join(File.expand_path(File.dirname(__FILE__)), '..', 'views')
 
   def Condom.get_user_name
@@ -31,7 +30,7 @@ module Condom
       :fancyhdr       => false,
       :graphics       => false,
       :math           => false,
-      :pdf            => false,
+      :pdf            => true,
       :filename       => 'main',
       :author         => Condom.get_user_name,
       :title          => 'Document \LaTeX',
@@ -80,34 +79,34 @@ module Condom
 
         # Create files
         if @document_class == "beamer"
-          touch "main_beamer.tex"
+          build "main_beamer.tex"
         else
-          touch "main.tex"
+          build "main.tex"
         end
-        touch "Makefile"
+        build "Makefile"
         if @graphics
-          touch "fig.tex"
+          build "fig.tex"
           Dir.mkdir "fig"
         end
         Dir.mkdir "src" if @listings
         Dir.mkdir "inc"
         Dir.chdir "inc" do
-          touch "packages.tex"
-          touch "commands.tex"
-          touch "colors.tex"
-          touch "lst-conf.tex" if @listings
-          touch "flyleaf.tex" if @document_class == "report"
+          build "packages.tex"
+          build "commands.tex"
+          build "colors.tex"
+          build "lst-conf.tex" if @listings
+          build "flyleaf.tex" if @document_class == "report"
         end
       end
     end
 
     private
 
-    def touch template
+    def build template
       file = (template == "main_beamer.tex") ? "main.tex" : template
 
       erb = File.read(File.join(VIEWS_DIR, template + ".erb"))
-      content = ERB.new(erb).result
+      content = ERB.new(erb).result(binding)
       File.open(file, 'w') do |f|
         f.write content
       end

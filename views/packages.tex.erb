@@ -35,5 +35,5 @@
 <% end %>
 
 \usepackage{multicol}
-<% #@packages.each { |p| puts '\usepackage{' << p << '}' } %>
-
+<% @packages.each { |p| puts '\usepackage{#{p}}' } %>
+            
