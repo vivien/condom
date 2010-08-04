@@ -2,8 +2,8 @@
 # Command line tool for Condom
 
 # Add ../lib to the load path
-lib_dir = File.join(File.dirname(__FILE__), '..', 'lib')
-$LOAD_PATH.unshift lib_dir unless $LOAD_PATH.include? lib_dir
+#lib_dir = File.join(File.dirname(__FILE__), '..', 'lib')
+#$LOAD_PATH.unshift lib_dir unless $LOAD_PATH.include? lib_dir
 
 require 'condom'
 require 'optparse'
