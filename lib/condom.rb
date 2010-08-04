@@ -8,8 +8,7 @@ require 'fileutils'
 
 # The Condom module
 module Condom
-  VERSION = 2.0
-  VIEWS_DIR = File.join(File.expand_path(File.dirname(__FILE__)), '..', 'views')
+  VIEWS_DIR = File.join(File.expand_path(File.dirname(__FILE__)), 'views')
 
   def Condom.get_user_name
     user = Etc.getpwnam(Etc.getlogin)['gecos'].split(',').first
