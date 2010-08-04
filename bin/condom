@@ -39,7 +39,7 @@ elsif ARGV.length == 1
 end
 
 # Ask for confirmation
-puts ops.to_yaml
+puts ops.to_yaml # Could it be prettier?
 print "\nContinue [Y/n/h]? "
 case STDIN.gets.strip
 when 'Y', 'y', ''
