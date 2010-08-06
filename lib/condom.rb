@@ -8,8 +8,12 @@ require 'fileutils'
 
 # The Condom module
 module Condom
+  # Constant views directory
   VIEWS_DIR = File.join(File.expand_path(File.dirname(__FILE__)), 'views')
 
+  # Function to get the name of the user.
+  # It will be the name in the /etc/passwd file (on Un*x  system)
+  # or the system user.
   def Condom.get_user_name
     user = Etc.getpwnam(Etc.getlogin)['gecos'].split(',').first
     user = Etc.getlogin if user.nil?
@@ -17,12 +21,15 @@ module Condom
     return user
   end
 
+  # The Document class.
+  # This is the main class of the condom lib.
   class Document
     attr_accessor :outputdir,
       :listings, :fancyhdr, :graphics, :math, :pdf,
       :filename, :author, :title, :date, :document_class,
       :packages
 
+    # The default options
     DEFAULT_OPTIONS = {
       :outputdir      => Dir.getwd,
       :listings       => false,
@@ -38,6 +45,10 @@ module Condom
       :packages       => Array.new
     }
 
+    # The constructor.
+    # Argument could be nothing,
+    # the title of the document,
+    # a hash of options.
     def initialize(*args)
       # Need to initialize each variables else they won't exist in instance_variables.
       @outputdir = @listings = @fancyhdr = @graphics = @math = @pdf = @filename = @author = @title = @date = @document_class = @packages = nil
@@ -52,6 +63,7 @@ module Condom
       end
     end
 
+    # This method returns a hash of the options of the document.
     def get_options
       hash = Hash.new
       instance_variables.each do |var|
@@ -61,6 +73,7 @@ module Condom
       return hash
     end
 
+    # This method sets options of the document given in a hash
     def set_options(hash)
       hash.keys.each do |key|
         var = '@' << key.to_s
@@ -69,6 +82,8 @@ module Condom
       end
     end
 
+    # This method creates the output directory (if needed)
+    # and write in it all files needed.
     def create
       # Verify output
       FileUtils.makedirs @outputdir
@@ -101,6 +116,7 @@ module Condom
 
     private
 
+    # This fonction writes a file from its template
     def build template
       file = (template == "main_beamer.tex") ? "main.tex" : template
 

@@ -1,5 +1,60 @@
-condom
+Condom
 ------
 
 A Ruby lib to create a skeleton for a LaTeX document.
 
+Installation
+------------
+
+$ gem install condom
+
+Usage
+-----
+
+For the usage of the lib, see the documentation (gem server for example).
+
+Condom gem provides a condom shell command.
+
+$ condom --help
+Usage: condom [options] [destination]
+Available options:
+    -m, --math                       Math packages
+    -l, --listings                   Listings package
+    -f, --fancyhdr                   Fancyhdr package
+    -p, --pdf                        PDF config
+    -g, --graphics                   Images packages
+    -n, --filename=FILENAME          Define a file name
+    -a, --author=AUTHOR              Define the author
+    -t, --title=TITLE                Define the title
+    -d, --date=DATE                  Define the date
+    -c, --class=CLASS                Define the document class
+    -P, --package=PACKAGE            Add another package
+    -v, --version                    Print version
+destination:
+    /home/v0n (current directory)
+
+Here is the output of the command:
+$ condom -mlfpg -t "Condom makes LaTeX easier" here
+here/
+├── fig
+├── fig.tex
+├── inc
+│   ├── colors.tex
+│   ├── commands.tex
+│   ├── lst-conf.tex
+│   └── packages.tex
+├── main.tex
+├── Makefile
+└── src
+
+In generated files, there is a Makefile.
+Just use your document this way:
+- compile with:
+$ make
+or
+$ make view # this will open the generated document after
+
+- clean sources with:
+$ make clean
+- archive the whole document with:
+$ make archive
