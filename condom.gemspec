@@ -4,5 +4,7 @@ Gem::Specification.new do |spec|
   spec.email = 'vivien.didelot@gmail.com'
   spec.version = '0.0.1'
   spec.summary = 'A Ruby gem to create a skeleton for a LaTeX document.'
+  spec.require_path = "lib"
+  spec.files = Dir['lib/**/*.rb']
   spec.executables << 'condom'
 end
