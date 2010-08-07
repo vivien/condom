@@ -26,7 +26,7 @@ module Condom
   class Document
     attr_accessor :outputdir,
       :listings, :fancyhdr, :graphics, :math, :pdf,
-      :filename, :author, :title, :date, :document_class,
+      :filename, :author, :title, :date, :document_class, :language,
       :packages
 
     # The default options
@@ -42,6 +42,7 @@ module Condom
       :title          => 'Document \LaTeX',
       :date           => '\today',
       :document_class => 'article',
+      :language       => 'francais',
       :packages       => Array.new
     }
 
@@ -51,7 +52,7 @@ module Condom
     # a hash of options.
     def initialize(*args)
       # Need to initialize each variables else they won't exist in instance_variables.
-      @outputdir = @listings = @fancyhdr = @graphics = @math = @pdf = @filename = @author = @title = @date = @document_class = @packages = nil
+      @outputdir = @listings = @fancyhdr = @graphics = @math = @pdf = @filename = @author = @title = @date = @document_class = @language = @packages = nil
 
       set_options DEFAULT_OPTIONS
 

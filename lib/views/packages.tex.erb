@@ -1,6 +1,8 @@
 \usepackage[T1]{fontenc}      % codage des caracteres
-\usepackage[utf8]{inputenc}   % encodage du fichier (utf8 ou latin1)
-\usepackage[francais]{babel}  % langue
+
+<% enc = (PLATFORM.include? "linux") ? "utf8" : "latin1" %>
+\usepackage[<%= enc %>]{inputenc}   % encodage du fichier (utf8 ou latin1)
+\usepackage[<%= @language %>]{babel}  % langue
 \usepackage{mathpazo}         % selection de la police
 \usepackage{geometry}         % mise en page
 \usepackage{xcolor}           % pour colorer des elements
@@ -35,5 +37,8 @@
 <% end %>
 
 \usepackage{multicol}
-<% @packages.each { |p| puts '\usepackage{#{p}}' } %>
+
+<% for package in @packages do %>
+\usepackage{#{package}}
+<% end %>
             
