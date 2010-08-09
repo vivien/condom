@@ -25,34 +25,40 @@ ARGV.options do |o|
   o.on("-t", "--title=TITLE",       String, "Define the title")          { |v| ops[:title] = v }
   o.on("-d", "--date=DATE",         String, "Define the date")           { |v| ops[:date] = v }
   o.on("-c", "--class=CLASS",       String, "Define the document class") { |v| ops[:document_class] = v }
+  o.on("-L", "--language=LANGUAGE", String, "Define the language")       { |v| ops[:language] = v }
   o.on("-P", "--package=PACKAGE",   String, "Add another package")       { |v| ops[:packages].push v }
-  o.on("-v", "--version",                   "Print version")             { puts "Condom lib: version #{Condom::VERSION}" ; exit }
+  #o.on("-v", "--version",                   "Print version")             { puts "Condom lib: version #{Condom::VERSION}" ; exit }
 
   o.on_tail("destination:\n    " << ops[:outputdir] + (ops[:outputdir] == Dir.getwd ? " (current directory)" : ""))
-end.parse!
-
-if ARGV.length > 1
-  puts "Bad syntax."
-  exit
-elsif ARGV.length == 1
-  ops[:outputdir] = (ARGV.first == ".") ? Dir.getwd : ARGV.first
 end
 
-# Ask for confirmation
-puts ops.to_yaml # Could it be prettier?
-print "\nContinue [Y/n/h]? "
-case STDIN.gets.strip
-when 'Y', 'y', ''
-when 'h'
-  puts ARGV.options
-  exit
-else
-  puts "Cancel."
-  exit
+begin
+  ARGV.options.parse!
+
+  raise "Bad syntax." if ARGV.length > 1
+  if ARGV.length == 1
+    ops[:outputdir] = (ARGV.first == ".") ? Dir.getwd : ARGV.first
+  end
+
+  # Ask for confirmation
+  puts ops.to_yaml # Could it be prettier?
+  print "\nContinue [Y/n/h]? "
+  case STDIN.gets.strip
+  when 'Y', 'y', ''
+  when 'h'
+    puts ARGV.options
+    exit
+  else
+    puts "Cancel."
+    exit
+  end
+
+  doc = Condom::Document.new(ops)
+  doc.create
+
+  puts "OK"
+rescue => e
+  STDERR.puts "error: #{e}"
 end
 
-doc = Condom::Document.new(ops)
-doc.create
-
-puts "OK"
 exit
