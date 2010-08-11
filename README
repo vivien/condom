@@ -1,85 +1,83 @@
-Condom
-------
+= Condom
 
 A Ruby lib to create a skeleton for a LaTeX document.
 
-Installation
-------------
+== Installation
 
-$ gem install condom
+  $ gem install condom
 
-Usage
------
+== Usage
 
 For the usage of the lib, see the documentation (gem server for example).
 
 Condom gem provides a condom shell command.
 
-$ condom --help
-Usage: condom [options] [destination]
-Available options:
-    -m, --math                       Math packages
-    -l, --listings                   Listings package
-    -f, --fancyhdr                   Fancyhdr package
-    -p, --pdf                        PDF config
-    -g, --graphics                   Images packages
-    -n, --filename=FILENAME          Define a file name
-    -a, --author=AUTHOR              Define the author
-    -t, --title=TITLE                Define the title
-    -d, --date=DATE                  Define the date
-    -c, --class=CLASS                Define the document class
-    -P, --package=PACKAGE            Add another package
-    -v, --version                    Print version
-destination:
-    /home/v0n (current directory)
+  $ condom --help
+  Usage: condom [options] [destination]
+  Available options:
+      -m, --math                       Math packages
+      -l, --listings                   Listings package
+      -f, --fancyhdr                   Fancyhdr package
+      -p, --pdf                        PDF config
+      -g, --graphics                   Images packages
+      -n, --filename=FILENAME          Define a file name
+      -a, --author=AUTHOR              Define the author
+      -t, --title=TITLE                Define the title
+      -d, --date=DATE                  Define the date
+      -c, --class=CLASS                Define the document class
+      -P, --package=PACKAGE            Add another package
+      -v, --version                    Print version
+  destination:
+      /home/v0n (current directory)
 
 In generated files, there is a Makefile.
 Just use your document this way (from the source folder):
-- compile with:
-$ make
-or
-$ make view # this will open the generated document after
+* compile with:
+  $ make
+or compile and open with
+  $ make view
 
-- clean sources with:
-$ make clean
+* clean sources with:
+  $ make clean
 
-- archive the whole document with:
-$ make archive
+* archive the whole document with:
+  $ make archive
 
-Technique
----------
+== Technique
 
 The following command:
-$ condom -mlfpg -t "Condom makes LaTeX easier" here
+  $ condom -mlfpg -t "Condom makes LaTeX easier" here
 
 will generate:
-here/
-├── fig
-├── fig.tex
-├── inc
-│   ├── colors.tex
-│   ├── commands.tex
-│   ├── lst-conf.tex
-│   └── packages.tex
-├── main.tex
-├── Makefile
-└── src
+  $ tree here/
+  here/
+  ├── fig
+  ├── fig.tex
+  ├── inc
+  │   ├── colors.tex
+  │   ├── commands.tex
+  │   ├── lst-conf.tex
+  │   └── packages.tex
+  ├── main.tex
+  ├── Makefile
+  └── src
 
-fig/
+=== fig/
 This is the folder where you should put your images.
 
-inc/
+=== inc/
 This folder has all configuration tex files:
-  colors.tex - customized colors
-  commands.tex - customized commands
-  lst-conf.tex - configuration file for the listings package
-  packages - all needed packages
+* colors.tex - customized colors
+* commands.tex - customized commands
+* lst-conf.tex - configuration file for the listings package
+* packages - all needed packages
 
-main.tex
-  The main tex file. If you specify a filename with -n option, then the generated pdf file will have this name, not the main tex file.
+=== main.tex
+The main tex file. If you specify a filename with -n option, then the generated pdf file will have this name, not the main tex file.
 
-Makefile
-  Makefile to manage your document sources easily (see the usage above).
+=== Makefile
+Makefile to manage your document sources easily (see the usage above).
 
-src/
-  This is the folder where to put listings (a result of -l option).
+=== src/
+This is the folder where to put listings (a result of -l option).
+
