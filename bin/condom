@@ -7,14 +7,13 @@
 
 require 'condom'
 require 'optparse'
-require 'yaml'
+#require 'yaml'
 
 ops = Condom::Document::DEFAULT_OPTIONS
 
 ARGV.options do |o|
   o.banner = "Usage: #{File.basename $0} [options] [destination]\n"
-  o.on_head("Available options:")
-
+  o.on_head("\nAvailable options:")
   o.on("-m", "--math",                      "Math packages")             { ops[:math] = true }
   o.on("-l", "--listings",                  "Listings package")          { ops[:listings] = true }
   o.on("-f", "--fancyhdr",                  "Fancyhdr package")          { ops[:fancyhdr] = true }
@@ -28,8 +27,6 @@ ARGV.options do |o|
   o.on("-L", "--language=LANGUAGE", String, "Define the language")       { |v| ops[:language] = v }
   o.on("-P", "--package=PACKAGE",   String, "Add another package")       { |v| ops[:packages].push v }
   #o.on("-v", "--version",                   "Print version")             { puts "Condom lib: version #{Condom::VERSION}" ; exit }
-
-  o.on_tail("destination:\n    " << ops[:outputdir] + (ops[:outputdir] == Dir.getwd ? " (current directory)" : ""))
 end
 
 begin
@@ -41,7 +38,15 @@ begin
   end
 
   # Ask for confirmation
-  puts ops.to_yaml # Could it be prettier?
+  ops.each do |key, val|
+    value = case val
+            when true: "yes"
+            when false: "no"
+            when Array: val.join(", ")
+            else val
+            end
+    printf "%-15s=> %s\n", key, value
+  end
   print "\nContinue [Y/n/h]? "
   case STDIN.gets.strip
   when 'Y', 'y', ''
@@ -56,7 +61,7 @@ begin
   doc = Condom::Document.new(ops)
   doc.create
 
-  puts "OK"
+  puts "Document created in #{doc.outputdir}."
 rescue => e
   STDERR.puts "error: #{e}"
 end
