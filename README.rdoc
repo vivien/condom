@@ -32,22 +32,15 @@ Condom gem provides a condom shell command.
       /home/v0n (current directory)
 
 In generated files, there is a Makefile.
-Just use your document this way (from the source folder):
+Just use your document (from the source folder) like below.
 
-* compile with:
-
+compile with:
   $ make
-
-* or compile and open with
-
+or compile and open with:
   $ make view
-
-* clean sources with:
-
+clean sources (remove .out, .toc, etc. files) with:
   $ make clean
-
-* archive the whole document with:
-
+archive the whole document with:
   $ make archive
 
 == Technique
