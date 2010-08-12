@@ -1,9 +1,11 @@
-0.1.0
-=====
+== 0.1.1
+
+Made the executable prettier (confirmation and help).
+
+== 0.1.0
 
 Added the language option. This option should be a LaTeX language. Default is 'francais'.
 
-0.0.1
-=====
+== 0.0.1
 
 Initial version of Condom gem.
