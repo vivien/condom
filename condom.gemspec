@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.summary = 'A Ruby gem to create a skeleton for a LaTeX document.'
   spec.require_path = 'lib'
   spec.files = Dir['lib/**/*']
-  spec.files << 'README'
-  spec.files << 'CHANGELOG'
+  spec.files << 'README.rdoc'
+  spec.files << 'CHANGELOG.rdoc'
   spec.executables << 'condom'
 end
