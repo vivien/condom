@@ -8,12 +8,17 @@ A Ruby lib to create a skeleton for a LaTeX document.
 
 == Usage
 
+=== Lib
+
 For the usage of the lib, see the documentation (gem server for example).
+
+=== Executable
 
 Condom gem provides a condom shell command.
 
   $ condom --help
   Usage: condom [options] [destination]
+  
   Available options:
       -m, --math                       Math packages
       -l, --listings                   Listings package
@@ -28,8 +33,6 @@ Condom gem provides a condom shell command.
       -L, --language=LANGUAGE          Define the language
       -P, --package=PACKAGE            Add another package
       -v, --version                    Print version
-  destination:
-      /home/v0n (current directory)
 
 In generated files, there is a Makefile.
 Just use your document (from the source folder) like below.

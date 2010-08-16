@@ -1,44 +1,43 @@
 \usepackage[T1]{fontenc}      % codage des caracteres
 
-<% enc = (PLATFORM.include? "linux") ? "utf8" : "latin1" %>
-\usepackage[<%= enc %>]{inputenc}   % encodage du fichier (utf8 ou latin1)
+\usepackage[<%= (PLATFORM.include? 'linux') ? 'utf8' : 'latin1' %>]{inputenc}   % encodage du fichier (utf8 ou latin1)
 \usepackage[<%= @language %>]{babel}  % langue
 \usepackage{mathpazo}         % selection de la police
 \usepackage{geometry}         % mise en page
 \usepackage{xcolor}           % pour colorer des elements
 
 <% if @graphics %>
-\usepackage{graphicx}         % pour inserer des images
+    \usepackage{graphicx}         % pour inserer des images
 <% end %>
 
 <% if @math %>
-% math
-\usepackage{amssymb}          % symboles mathematiques
-%\usepackage{amsmath}         % commandes mathematiques
+    % math
+    \usepackage{amssymb}          % symboles mathematiques
+    %\usepackage{amsmath}         % commandes mathematiques
 <% end %>
 
 <% if @pdf %>
-% pdf
-\usepackage{url}              % permet l'insertion d'url
-\usepackage[pdftex]{hyperref} % permet l'hypertexte (rend les liens cliquables)
+    % pdf
+    \usepackage{url}              % permet l'insertion d'url
+    \usepackage[pdftex]{hyperref} % permet l'hypertexte (rend les liens cliquables)
 <% end %>
 
 <% if @listings %>
-% listings
-\usepackage{listings}         % permet d'inserer du code (multi-langage)
-\usepackage{courier}
-\usepackage{caption}
+    % listings
+    \usepackage{listings}         % permet d'inserer du code (multi-langage)
+    \usepackage{courier}
+    \usepackage{caption}
 <% end %>
 
 <% if @fancyhdr %>
-% fancyhdr
-\usepackage{lastpage}         % derniere page
-\usepackage{fancyhdr}         % en-tete et pied de page
+    % fancyhdr
+    \usepackage{lastpage}         % derniere page
+    \usepackage{fancyhdr}         % en-tete et pied de page
 <% end %>
 
 \usepackage{multicol}
 
-<% for package in @packages do %>
-\usepackage{#{package}}
+<% for package in @other_packages do %>
+    \usepackage{<%= package %>}
 <% end %>
-            
+

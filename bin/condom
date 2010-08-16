@@ -1,5 +1,5 @@
-#!/usr/bin/ruby -w
 # Command line tool for Condom
+# Author: Vivien 'v0n' Didelot.
 
 # Add ../lib to the load path
 #lib_dir = File.join(File.dirname(__FILE__), '..', 'lib')
@@ -7,9 +7,9 @@
 
 require 'condom'
 require 'optparse'
-#require 'yaml'
 
-ops = Condom::Document::DEFAULT_OPTIONS
+doc = Condom::Base.new
+ops = doc.get_options
 
 ARGV.options do |o|
   o.banner = "Usage: #{File.basename $0} [options] [destination]\n"
@@ -25,8 +25,8 @@ ARGV.options do |o|
   o.on("-d", "--date=DATE",         String, "Define the date")           { |v| ops[:date] = v }
   o.on("-c", "--class=CLASS",       String, "Define the document class") { |v| ops[:document_class] = v }
   o.on("-L", "--language=LANGUAGE", String, "Define the language")       { |v| ops[:language] = v }
-  o.on("-P", "--package=PACKAGE",   String, "Add another package")       { |v| ops[:packages].push v }
-  #o.on("-v", "--version",                   "Print version")             { puts "Condom lib: version #{Condom::VERSION}" ; exit }
+  o.on("-P", "--package=PACKAGE",   String, "Add another package")       { |v| ops[:other_packages].push v }
+  o.on("-v", "--version",                   "Print version")             { puts "Condom lib: version #{Condom::VERSION}" ; exit }
 end
 
 begin
@@ -58,10 +58,15 @@ begin
     exit
   end
 
-  doc = Condom::Document.new(ops)
+  if ops[:document_class] == 'beamer'
+    doc = Condom::Presentation.new
+  else
+    doc = Condom::Document.new
+  end
+  doc.set_options(ops)
   doc.create
 
-  puts "Document created in #{doc.outputdir}."
+  puts "Files created in #{doc.outputdir}."
 rescue => e
   STDERR.puts "error: #{e}"
 end
