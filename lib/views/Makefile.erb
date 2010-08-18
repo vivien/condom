@@ -1,6 +1,8 @@
 # Makefile
 # generated on <%= Time.now %>
-# by <%= @author %> with the Condom lib
+# by <%= @author %>
+# With the Condom lib (version <%= Condom::VERSION %>)
+# See http://github.com/v0n/condom
 
 FINAL_FILENAME=<%= @filename %>
 FILENAME=main
@@ -24,7 +26,7 @@ view: all
 
 clean:
 	@echo "cleaning..."
-	@rm -f *.aux *.log *.out *.toc *.lol<% if @listings %> *.lof<% end %><% if @document_class == "beamer" %> *.nav *.snm<% end %><% unless @document_class == "beamer" %>
+	@rm -f *.aux *.log *.out *.toc *.lol<% if @listings %> *.lof<% end %><% if @document_class == "beamer" %> *.nav *.snm<% end %><% unless @document_class == "letter" %>
 	@rm -f inc/*.aux<% end %>
 	@rm -f $(FINAL_FILENAME).tar
 

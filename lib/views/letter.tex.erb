@@ -1,0 +1,48 @@
+% LaTeX letter skeleton
+% generated on <%= Time.now %>
+% by <%= @author %>
+% With the Condom lib (version <%= Condom::VERSION %>)
+% See http://github.com/v0n/condom
+
+\documentclass[11pt]{letter}
+\usepackage[<%= @language %>]{babel}  % langue
+\usepackage[<%= (PLATFORM.include? 'linux') ? 'utf8' : 'latin1' %>]{inputenc}
+\usepackage{graphicx}
+\usepackage{geometry}
+
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+
+\name{<%= @author %>}
+\address{<%= @address.gsub("\n", "\\ ") %>}
+\signature{%
+    <%= @author %>
+    % \includegraphics[height=2.5cm]{signature} % insert your handwritten signature here if you have one
+}
+\date{<%= @date %>}
+
+\begin{document}
+    \begin{letter}{% recipient information goes here: name\\ address
+        <%= @recipient %>\\ <%= @recipient_address.gsub("\n", "\\ ") %>
+    }
+        \opening{\centering \textbf{<%= @title %>}}
+
+        \begin{flushleft}
+        <%= @recipient %>,
+        \end{flushleft}
+
+        \begin{minipage}{\textwidth} % justify text
+            % the body of the letter goes here
+        \end{minipage}
+
+        \closing{<%=
+                    case @language
+                    when 'francais' : "Veuillez agréer, l'expression de mes sincères salutations,"
+                    else "Yours sincerely,"
+                    end
+                %>}
+        %\ps{P.S. Here goes your ps}
+        %\cc{others recipients go here}
+        %\encl{Here goes what you have enclosed with the letter}
+    \end{letter}
+\end{document}
+

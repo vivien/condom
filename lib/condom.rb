@@ -1,4 +1,5 @@
 require "condom/base"
+require "condom/letter"
 require "condom/document"
 require "condom/presentation"
 

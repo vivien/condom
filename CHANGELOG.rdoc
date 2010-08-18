@@ -2,6 +2,7 @@
 
 * Changed files organisation: specific documents now extend a Base class.
 * Added a Presentation class.
+* Added a Letter class.
 * Added a VERSION constant to the lib.
 * Updated the executable.
 * Cleaned the ouput LaTeX code.

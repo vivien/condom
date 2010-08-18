@@ -2,15 +2,29 @@
 
 A Ruby lib to create a skeleton for a LaTeX document.
 
+This lib requires that you know the LaTeX language.
+
+Its purpose is not to write a whole document for you,
+but to facilitate the preparation of a LaTeX document,
+that is to say to create a set of files to easily start it.
+So you won't have to care about packages to import, configuration, etc.
+The compilation, cleanup and interaction with the sources
+are facilitated by the usage of a Makefile (see the Usage section below).
+
+The document types supported for the moment are:
+* Any classic type (article, report, book, ...)
+* Presentation (i.e. a beamer document)
+* Letter
+
 == Installation
+
+Condom is available on Rubygems.org[http://rubygems.org/gems/condom] and can be installed with:
 
   $ gem install condom
 
+This command needs Rubygems (rubygems package on Ubuntu).
+
 == Usage
-
-=== Lib
-
-For the usage of the lib, see the documentation (gem server for example).
 
 === Executable
 
@@ -18,7 +32,7 @@ Condom gem provides a condom shell command.
 
   $ condom --help
   Usage: condom [options] [destination]
-  
+
   Available options:
       -m, --math                       Math packages
       -l, --listings                   Listings package
@@ -30,9 +44,10 @@ Condom gem provides a condom shell command.
       -t, --title=TITLE                Define the title
       -d, --date=DATE                  Define the date
       -c, --class=CLASS                Define the document class
+                                       "beamer" for a presentation, "letter" for a letter
       -L, --language=LANGUAGE          Define the language
       -P, --package=PACKAGE            Add another package
-      -v, --version                    Print version
+      -v, --version                    Print Condom version
 
 In generated files, there is a Makefile.
 Just use your document (from the source folder) like below.
@@ -45,6 +60,45 @@ clean sources (remove .out, .toc, etc. files) with:
   $ make clean
 archive the whole document with:
   $ make archive
+
+=== Lib
+
+You can use the lib to create your document (e.g. using IRB).
+Here's a quick overview of its operation.
+
+Create a document with:
+
+  doc = Condom::Document.new
+
+or a presentation with:
+
+  doc = Condom::Presentation.new
+
+or a letter with:
+
+  doc = Condom::Letter.new
+
+All constructors of these classes will use default values, but also accept:
+* no argument
+* a String: will be the title of the document
+* a Hash of options. Keys of the options hash should be symbols with the same name than the attributes of the class. i.e.:
+
+  doc = Condom::Document.new(:math => true, :outputdir => "here", :author => "John Smith")
+
+You can get all options with:
+
+  doc.get_options
+
+All attributes can be accessed by classic methods:
+
+  doc.title = "My Title"
+  doc.title # => "My Title"
+
+Then, once your document is ready to be generated, create it with:
+
+  doc.create
+
+This method will generate all files in the outputdir directory.
 
 == Technique
 
