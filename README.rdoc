@@ -81,9 +81,10 @@ or a letter with:
 All constructors of these classes will use default values, but also accept:
 * no argument
 * a String: will be the title of the document
-* a Hash of options. Keys of the options hash should be symbols with the same name than the attributes of the class. i.e.:
+* a Hash of options. Keys of the options hash should be symbols with the same name than the attributes of the class.
+i.e.:
 
-  doc = Condom::Document.new(:math => true, :outputdir => "here", :author => "John Smith")
+  doc = Condom::Document.new(:document_class => "report", :math => true, :outputdir => "here")
 
 You can get all options with:
 
