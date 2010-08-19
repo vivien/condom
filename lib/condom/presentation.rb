@@ -17,7 +17,7 @@ module Condom
         # The default options
         options = {
           :document_class => 'beamer',
-          :title          => 'Présentation \LaTeX',
+          :title          => 'Presentation \LaTeX',
           :filename       => 'presentation',
           :listings       => false,
           :graphics       => true,

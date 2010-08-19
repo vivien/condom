@@ -1,3 +1,8 @@
+# Condom, a Ruby lib for LaTeX document.
+#
+# Author:: Vivien 'v0n' Didelot <vivien.didelot@gmail.com>
+# See:: http://github.com/v0n/condom
+
 require "condom/base"
 require "condom/letter"
 require "condom/document"

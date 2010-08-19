@@ -1,7 +1,8 @@
 == 1.0.0
 
 * Rewrote the executable, it is now simpler and allow user to change every fields (see the README).
-* renamed 'outputdir' attribute to 'directory'.
+* Renamed 'outputdir' attribute to 'directory'.
+* Changed syntax according to 1.9.* Ruby versions (e.g. ':' in case), **but still doesn't work on 1.9.* Ruby versions!**
 
 == 0.2.0
 

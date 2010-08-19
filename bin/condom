@@ -1,7 +1,7 @@
 # Command line tool for Condom
 #
-# Author: Vivien 'v0n' Didelot.
-# See: http://github.com/v0n/condom
+# Author:: Vivien 'v0n' Didelot <vivien.didelot@gmail.com>
+# See:: http://github.com/v0n/condom
 
 require 'condom'
 require 'optparse'
@@ -35,15 +35,15 @@ begin
 
   if ARGV.size == 1
     doc = case ARGV.first
-          when 'document': Condom::Document.new
-          when 'presentation': Condom::Presentation.new
-          when 'letter': Condom::Letter.new
+          when 'document' then Condom::Document.new
+          when 'presentation' then Condom::Presentation.new
+          when 'letter' then Condom::Letter.new
           else raise "Bad syntax. Try \`#{File.basename $0} --help' for more information."
           end
   elsif ops.has_key? :document_class
     doc = case ops[:document_class]
-          when 'beamer': Condom::Presentation.new
-          when 'letter': Condom::Letter.new
+          when 'beamer' then Condom::Presentation.new
+          when 'letter' then Condom::Letter.new
           else Condom::Document.new
           end
   else
@@ -60,9 +60,9 @@ begin
     printf "    type [%s]: ", doc_type
     type = STDIN.gets.strip
     doc = case type
-          when 'document': Condom::Document.new(ops)
-          when 'presentation': Condom::Presentation.new(ops)
-          when 'letter': Condom::Letter.new(ops)
+          when 'document' then Condom::Document.new(ops)
+          when 'presentation' then Condom::Presentation.new(ops)
+          when 'letter' then Condom::Letter.new(ops)
           else raise "Bad syntax. Try \`#{File.basename $0} --help' for more information."
           end unless type.empty? || type == doc_type
     puts
@@ -71,9 +71,9 @@ begin
       ops = Hash.new
       doc.get_options.each do |key, value|
         displayed_value = case value
-                          when true: "yes"
-                          when false: "no"
-                          when Array: value.join(', ')
+                          when true then "yes"
+                          when false then "no"
+                          when Array then value.join(', ')
                           else value
                           end
         printf "    %-17s [%s]: ", key, displayed_value
@@ -88,14 +88,14 @@ begin
 
       print "\nIs the information correct? [Y/n/q] "
       case STDIN.gets.strip
-        when /^Y?$/i: break
-        when 'q': exit
+        when /^Y?$/i then break
+        when 'q' then exit
       end
     end
   end
 
   doc.create
-  puts "info: Files created in #{doc.directory}"
+  puts "info: Files created in #{doc.directory}."
 rescue => e
   STDERR.puts "fail: #{e}"
 end
