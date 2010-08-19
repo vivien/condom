@@ -35,7 +35,7 @@ module Condom
 
     # This method will write in the output directory all needed files.
     def create
-      in_outputdir do
+      in_directory do
         # Create files
         build "presentation.tex"
         File.rename("presentation.tex", "main.tex")

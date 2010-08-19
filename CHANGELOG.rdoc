@@ -1,3 +1,8 @@
+== 1.0.0
+
+* Rewrote the executable, it is now simpler and allow user to change every fields (see the README).
+* renamed 'outputdir' attribute to 'directory'.
+
 == 0.2.0
 
 * Changed files organisation: specific documents now extend a Base class.

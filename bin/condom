@@ -1,74 +1,103 @@
 # Command line tool for Condom
+#
 # Author: Vivien 'v0n' Didelot.
-
-# Add ../lib to the load path
-#lib_dir = File.join(File.dirname(__FILE__), '..', 'lib')
-#$LOAD_PATH.unshift lib_dir unless $LOAD_PATH.include? lib_dir
+# See: http://github.com/v0n/condom
 
 require 'condom'
 require 'optparse'
 
-doc = Condom::Base.new
-ops = doc.get_options
+quiet = false
+types = ['document', 'presentation', 'letter']
+ops = {:other_packages => []}
 
 ARGV.options do |o|
-  o.banner = "Usage: #{File.basename $0} [options] [destination]\n"
-  o.on_head("\nAvailable options:")
-  o.on("-m", "--math",                      "Math packages")             { ops[:math] = true }
-  o.on("-l", "--listings",                  "Listings package")          { ops[:listings] = true }
-  o.on("-f", "--fancyhdr",                  "Fancyhdr package")          { ops[:fancyhdr] = true }
-  o.on("-p", "--pdf",                       "PDF config")                { ops[:pdf] = true }
-  o.on("-g", "--graphics",                  "Images packages")           { ops[:graphics] = true }
-  o.on("-n", "--filename=FILENAME", String, "Define a file name")        { |v| ops[:filename] = v }
-  o.on("-a", "--author=AUTHOR",     String, "Define the author")         { |v| ops[:author] = v }
-  o.on("-t", "--title=TITLE",       String, "Define the title")          { |v| ops[:title] = v }
-  o.on("-d", "--date=DATE",         String, "Define the date")           { |v| ops[:date] = v }
-  o.on("-c", "--class=CLASS",       String, "Define the document class",
-               "\"beamer\" for a presentation, \"letter\" for a letter") { |v| ops[:document_class] = v }
-  o.on("-L", "--language=LANGUAGE", String, "Define the language")       { |v| ops[:language] = v }
-  o.on("-P", "--package=PACKAGE",   String, "Add another package")       { |v| ops[:other_packages].push v }
-  o.on("-v", "--version",                   "Print Condom version")      { puts "Condom lib: version #{Condom::VERSION}" ; exit }
+  o.banner = "Usage: #{File.basename $0} [type] [options]\n"
+  o.on_head("\nAvailable types:",
+    "    document                         'article', 'report' or other classes",
+    "    presentation                     'beamer' class",
+    "    letter                           'letter' class",
+    "\nAvailable options:")
+  o.on("-n", "--filename=FILENAME",    String, "Define a file name")          { |v| ops[:filename] = v }
+  o.on("-a", "--author=AUTHOR",        String, "Define the author")           { |v| ops[:author] = v }
+  o.on("-t", "--title=TITLE",          String, "Define the title")            { |v| ops[:title] = v }
+  o.on("-d", "--date=DATE",            String, "Define the date")             { |v| ops[:date] = v }
+  o.on("-c", "--document-class=CLASS", String, "Define the document class")   { |v| ops[:document_class] = v }
+  o.on("-l", "--language=LANGUAGE",    String, "Define the language")         { |v| ops[:language] = v }
+  o.on("-p", "--package=PACKAGE",      String, "Add another package")         { |v| ops[:other_packages].push v }
+  o.on("-o", "--directory=DIRECTORY",  String, "Define the output directory") { |v| ops[:directory] = v }
+  o.on("-q", "--quiet",                        "Don't ask any question")      { quiet = true }
+  o.on("-v", "--version",                      "Print Condom version")        { puts "Condom lib: version #{Condom::VERSION}" ; exit }
 end
 
 begin
   ARGV.options.parse!
+  raise "Bad syntax. Try \`#{File.basename $0} --help' for more information." if ARGV.length > 1
 
-  raise "Bad syntax." if ARGV.length > 1
-  if ARGV.length == 1
-    ops[:outputdir] = (ARGV.first == ".") ? Dir.getwd : ARGV.first
-  end
-
-  # Ask for confirmation
-  ops.each do |key, val|
-    value = case val
-            when true: "yes"
-            when false: "no"
-            when Array: val.join(", ")
-            else val
-            end
-    printf "%-15s=> %s\n", key, value
-  end
-  print "\nContinue [Y/n/h]? "
-  case STDIN.gets.strip
-  when 'Y', 'y', ''
-  when 'h'
-    puts ARGV.options
-    exit
+  if ARGV.size == 1
+    doc = case ARGV.first
+          when 'document': Condom::Document.new
+          when 'presentation': Condom::Presentation.new
+          when 'letter': Condom::Letter.new
+          else raise "Bad syntax. Try \`#{File.basename $0} --help' for more information."
+          end
+  elsif ops.has_key? :document_class
+    doc = case ops[:document_class]
+          when 'beamer': Condom::Presentation.new
+          when 'letter': Condom::Letter.new
+          else Condom::Document.new
+          end
   else
-    puts "Cancel."
-    exit
+    doc = Condom::Document.new
   end
 
-  doc = case ops[:document_class]
-        when 'beamer': Condom::Presentation.new
-        when 'letter': Condom::Letter.new
-        else Condom::Document.new
-        end
   doc.set_options(ops)
+
+  unless quiet
+    # Ask for confirmation
+    puts "Enter the new value, or press ENTER for the default"
+
+    doc_type = doc.class.to_s.split('::').last.downcase
+    printf "    type [%s]: ", doc_type
+    type = STDIN.gets.strip
+    doc = case type
+          when 'document': Condom::Document.new(ops)
+          when 'presentation': Condom::Presentation.new(ops)
+          when 'letter': Condom::Letter.new(ops)
+          else raise "Bad syntax. Try \`#{File.basename $0} --help' for more information."
+          end unless type.empty? || type == doc_type
+    puts
+
+    loop do
+      ops = Hash.new
+      doc.get_options.each do |key, value|
+        displayed_value = case value
+                          when true: "yes"
+                          when false: "no"
+                          when Array: value.join(', ')
+                          else value
+                          end
+        printf "    %-17s [%s]: ", key, displayed_value
+        new_value = STDIN.gets.strip
+        ops[key] = if value.is_a?(FalseClass) && new_value == "yes" then true
+                   elsif value.is_a?(TrueClass) && new_value == "no" then false
+                   elsif key == :other_packages then new_value.split(/\s*,\s*/)
+                   else new_value
+                   end unless new_value.empty?
+      end
+      doc.set_options(ops) unless ops.empty?
+
+      print "\nIs the information correct? [Y/n/q] "
+      case STDIN.gets.strip
+        when /^Y?$/i: break
+        when 'q': exit
+      end
+    end
+  end
+
   doc.create
-  puts "Files created in #{doc.outputdir}."
+  puts "info: Files created in #{doc.directory}"
 rescue => e
-  STDERR.puts "error: #{e}"
+  STDERR.puts "fail: #{e}"
 end
 
 exit

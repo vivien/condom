@@ -7,7 +7,7 @@ require "etc"
 
 module Condom
   # Lib version
-  VERSION = '0.2.0'
+  VERSION = '1.0.0'
 
   # Constant views directory
   VIEWS_DIR = File.join(File.expand_path(File.dirname(__FILE__)), 'views')

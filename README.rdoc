@@ -28,29 +28,36 @@ This command needs Rubygems (rubygems package on Ubuntu).
 
 === Executable
 
-Condom gem provides a condom shell command.
+Condom gem provides a 'condom' shell command.
 
   $ condom --help
-  Usage: condom [options] [destination]
+  Usage: condom [type] [options]
+
+  Available types:
+      document                         'article', 'report' or other classes
+      presentation                     'beamer' class
+      letter                           'letter' class
 
   Available options:
-      -m, --math                       Math packages
-      -l, --listings                   Listings package
-      -f, --fancyhdr                   Fancyhdr package
-      -p, --pdf                        PDF config
-      -g, --graphics                   Images packages
       -n, --filename=FILENAME          Define a file name
       -a, --author=AUTHOR              Define the author
       -t, --title=TITLE                Define the title
       -d, --date=DATE                  Define the date
-      -c, --class=CLASS                Define the document class
-                                       "beamer" for a presentation, "letter" for a letter
-      -L, --language=LANGUAGE          Define the language
-      -P, --package=PACKAGE            Add another package
+      -c, --document-class=CLASS       Define the document class
+      -l, --language=LANGUAGE          Define the language
+      -p, --package=PACKAGE            Add another package
+      -o, --directory=DIRECTORY        Define the output directory
+      -q, --quiet                      Don't ask any question
       -v, --version                    Print Condom version
 
-In generated files, there is a Makefile.
-Just use your document (from the source folder) like below.
+For example, you can easily generate a set of files for a presentation in a folder named 'My Presentation' using:
+
+  condom presentation -o "My Presentation"
+
+Unless the --quiet option is used, every options will be prompted for confirmation until the validation of the user (the type will be prompted just one time).
+
+In generated files, there is a Makefile (see the Technique section below for more information about the file organization).
+Just use your document (from the source folder) with the following commands.
 
 compile with:
   $ make
@@ -84,7 +91,7 @@ All constructors of these classes will use default values, but also accept:
 * a Hash of options. Keys of the options hash should be symbols with the same name than the attributes of the class.
 i.e.:
 
-  doc = Condom::Document.new(:document_class => "report", :math => true, :outputdir => "here")
+  doc = Condom::Document.new(:document_class => "report", :math => true, :directory => "here")
 
 You can get all options with:
 
@@ -99,14 +106,14 @@ Then, once your document is ready to be generated, create it with:
 
   doc.create
 
-This method will generate all files in the outputdir directory.
+This method will generate all files in the output directory.
 
 == Technique
 
 The following command:
-  $ condom -mlfpg -t "Condom makes LaTeX easier" here
+  $ condom document -t "Condom makes LaTeX easier" -o here
 
-will generate:
+may result the creation of these folders/files:
   $ tree here/
   here/
   ├── fig
