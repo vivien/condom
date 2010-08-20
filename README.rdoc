@@ -1,6 +1,6 @@
 = Condom
 
-A Ruby lib to create a skeleton for a LaTeX document.
+== A Ruby lib to prepare the skeleton of a LaTeX document
 
 This lib requires that you know the LaTeX language.
 
@@ -121,7 +121,7 @@ may result the creation of these folders/files:
   ├── inc
   │   ├── colors.tex
   │   ├── commands.tex
-  │   ├── lst-conf.tex
+  │   ├── listings.tex
   │   └── packages.tex
   ├── main.tex
   ├── Makefile
@@ -134,7 +134,7 @@ This is the folder where you should put your images.
 This folder has all configuration tex files:
 * colors.tex - customized colors
 * commands.tex - customized commands
-* lst-conf.tex - configuration file for the listings package
+* listings.tex - configuration file for the listings package
 * packages - all needed packages
 
 === main.tex

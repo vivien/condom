@@ -1,8 +1,11 @@
 == 1.0.1
 
-Added fixes for 1.9.* Ruby versions:
- * Added a workaround for instance_variables method (see set_options in base.rb)
- * Used RUBY_PLATFORM instead of PLATFORM (removed in 1.9.1)
+* Added fixes for 1.9.* Ruby versions:
+ - Added a workaround for instance_variables method (see set_options in base.rb)
+ - Used RUBY_PLATFORM instead of PLATFORM (removed in 1.9.1)
+* Renamed main.tex.erb to document.tex.erb
+* Renamed lst-conf.tex.erb to listings.tex.erb
+* Cleaned generated LaTeX code indentation
 
 == 1.0.0
 

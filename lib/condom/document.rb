@@ -37,7 +37,8 @@ module Condom
     def create
       in_directory do
         # Create files
-        build "main.tex"
+        build "document.tex"
+        File.rename("document.tex", "main.tex")
         build "Makefile"
         if @graphics
           build "fig.tex"
@@ -49,7 +50,7 @@ module Condom
           build "packages.tex"
           build "commands.tex"
           build "colors.tex"
-          build "lst-conf.tex" if @listings
+          build "listings.tex" if @listings
           build "flyleaf.tex" if @document_class == "report"
         end
       end

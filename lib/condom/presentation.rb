@@ -50,7 +50,7 @@ module Condom
           build "packages.tex"
           build "commands.tex"
           build "colors.tex"
-          build "lst-conf.tex" if @listings
+          build "listings.tex" if @listings
           build "flyleaf.tex" if @document_class == "report"
         end
       end
