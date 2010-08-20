@@ -55,7 +55,10 @@ module Condom
     def set_options(hash)
       hash.keys.each do |key|
         var = '@' << key.to_s
-        raise("Key #{key} not supported.") unless instance_variables.include? var
+        # = 1.9.* Fix
+        # The map method applied on instance_variables is used to force elements to be String
+        # because on 1.9.* Ruby versions, these elements are Symbol (i.e. :@directory).
+        raise("Key #{key} not supported.") unless instance_variables.map {|v| v.to_s}.include? var
         instance_variable_set(var, hash[key])
       end
     end

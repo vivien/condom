@@ -6,7 +6,7 @@
 
 \usepackage[T1]{fontenc}      % codage des caracteres
 
-\usepackage[<%= (PLATFORM.include? 'linux') ? 'utf8' : 'latin1' %>]{inputenc}   % encodage du fichier (utf8 ou latin1)
+\usepackage[<%= (RUBY_PLATFORM.include? 'linux') ? 'utf8' : 'latin1' %>]{inputenc}   % encodage du fichier (utf8 ou latin1)
 \usepackage[<%= @language %>]{babel}  % langue
 \usepackage{mathpazo}         % selection de la police
 \usepackage{geometry}         % mise en page

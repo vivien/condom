@@ -26,7 +26,7 @@ ARGV.options do |o|
   o.on("-p", "--package=PACKAGE",      String, "Add another package")         { |v| ops[:other_packages].push v }
   o.on("-o", "--directory=DIRECTORY",  String, "Define the output directory") { |v| ops[:directory] = v }
   o.on("-q", "--quiet",                        "Don't ask any question")      { quiet = true }
-  o.on("-v", "--version",                      "Print Condom version")        { puts "Condom lib: version #{Condom::VERSION}" ; exit }
+  o.on("-v", "--version",                      "Print Condom version")        { puts "Condom: version #{Condom::VERSION}" ; exit }
 end
 
 begin
