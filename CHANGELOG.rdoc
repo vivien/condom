@@ -1,3 +1,7 @@
+== 1.0.2
+
+* Added BEER-WARE license
+
 == 1.0.1
 
 * Added fixes for 1.9.* Ruby versions:
