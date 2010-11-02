@@ -2,6 +2,7 @@
 #
 # Author:: Vivien 'v0n' Didelot <vivien.didelot@gmail.com>
 # See:: http://github.com/v0n/condom
+#TODO accept 'article|book|report' as a type (seen like 'document').
 
 require 'condom'
 require 'optparse'
