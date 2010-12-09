@@ -1,8 +1,8 @@
 # The Condom module
 module Condom
-  # The Document class.
-  # This class is used to produce classic document such as article, report, etc.
-  class Document < Condom::Base
+  # The Classic class.
+  # This class is used to produce classic documents such as article, report, book, etc.
+  class Classic < Condom::Base
     attr_accessor :listings, :fancyhdr, :graphics, :math, :pdf
 
       # The constructor.
@@ -16,7 +16,7 @@ module Condom
 
         # The default options
         options = {
-          :filename => 'document',
+          :filename => 'classic',
           :listings => false,
           :fancyhdr => false,
           :graphics => false,
@@ -37,8 +37,8 @@ module Condom
     def create
       in_directory do
         # Create files
-        build "document.tex"
-        File.rename("document.tex", "main.tex")
+        build "classic.tex"
+        File.rename("classic.tex", "main.tex")
         build "Makefile"
         if @graphics
           build "fig.tex"

@@ -1,8 +1,10 @@
-== 1.1.0
+== 2.0.0
 
 * Added the BEER-WARE license.
 * Added a CV class.
 * The executable now prompts for type confirmation only when it is not already defined by the user.
+* Renamed 'flyleaf' into 'first-page'.
+* Renamed the 'Document' class (and type) into 'Classic'.
 
 == 1.0.1
 

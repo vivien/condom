@@ -31,30 +31,13 @@ This command needs Rubygems (rubygems package on Ubuntu).
 Condom gem provides a 'condom' shell command.
 
   $ condom --help
-  Usage: condom [type] [options]
-
-  Available types:
-      document                         'article', 'report' or other classes
-      presentation                     'beamer' class
-      letter                           'letter' class
-
-  Available options:
-      -n, --filename=FILENAME          Define a file name
-      -a, --author=AUTHOR              Define the author
-      -t, --title=TITLE                Define the title
-      -d, --date=DATE                  Define the date
-      -c, --document-class=CLASS       Define the document class
-      -l, --language=LANGUAGE          Define the language
-      -p, --package=PACKAGE            Add another package
-      -o, --directory=DIRECTORY        Define the output directory
-      -q, --quiet                      Don't ask any question
-      -v, --version                    Print Condom version
+TODO print help here
 
 For example, you can easily generate a set of files for a presentation in a folder named 'My Presentation' using:
 
   condom presentation -o "My Presentation"
 
-Unless the --quiet option is used, every options will be prompted for confirmation until the validation of the user (the type will be prompted just one time).
+Unless the --quiet option is used, every options will be prompted for confirmation until the validation of the user (the type will be prompted just one time, if it is not already defined).
 
 In generated files, there is a Makefile (see the Technique section below for more information about the file organization).
 Just use your document (from the source folder) with the following commands.
@@ -75,7 +58,7 @@ Here's a quick overview of its operation.
 
 Create a document with:
 
-  doc = Condom::Document.new
+  doc = Condom::Classic.new
 
 or a presentation with:
 
@@ -85,13 +68,17 @@ or a letter with:
 
   doc = Condom::Letter.new
 
+or a Resumé with:
+
+  doc = Condom::CV.new
+
 All constructors of these classes will use default values, but also accept:
 * no argument
 * a String: will be the title of the document
 * a Hash of options. Keys of the options hash should be symbols with the same name than the attributes of the class.
 i.e.:
 
-  doc = Condom::Document.new(:document_class => "report", :math => true, :directory => "here")
+  doc = Condom::Classic.new(:document_class => "report", :math => true, :directory => "here")
 
 You can get all options with:
 
@@ -111,7 +98,7 @@ This method will generate all files in the output directory.
 == Technique
 
 The following command:
-  $ condom document -t "Condom makes LaTeX easier" -o here
+  $ condom classic -t "Condom makes LaTeX easier" -o here
 
 may result the creation of these folders/files:
   $ tree here/
@@ -121,6 +108,7 @@ may result the creation of these folders/files:
   ├── inc
   │   ├── colors.tex
   │   ├── commands.tex
+  │   ├── first-page.tex
   │   ├── listings.tex
   │   └── packages.tex
   ├── main.tex
@@ -134,6 +122,7 @@ This is the folder where you should put your images.
 This folder has all configuration tex files:
 * colors.tex - customized colors
 * commands.tex - customized commands
+* first-page.tex - customized first-page (only for reports)
 * listings.tex - configuration file for the listings package
 * packages - all needed packages
 
