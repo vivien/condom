@@ -2,6 +2,7 @@
 
 * Added the BEER-WARE license.
 * Added a CV class.
+* The executable now prompts for type confirmation only when it is not already defined by the user.
 
 == 1.0.1
 
