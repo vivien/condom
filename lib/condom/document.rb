@@ -51,7 +51,7 @@ module Condom
           build "commands.tex"
           build "colors.tex"
           build "listings.tex" if @listings
-          build "flyleaf.tex" if @document_class == "report"
+          build "first-page.tex" if @document_class == "report"
         end
       end
     end
