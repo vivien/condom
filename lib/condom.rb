@@ -4,9 +4,10 @@
 # See:: http://github.com/v0n/condom
 
 require "condom/base"
-require "condom/letter"
 require "condom/document"
 require "condom/presentation"
+require "condom/letter"
+require "condom/cv"
 
 require "etc"
 

@@ -35,7 +35,9 @@ begin
   ARGV.options.parse!
   raise "Bad syntax. Try \`#{File.basename $0} --help' for more information." if ARGV.length > 1
 
-  if ARGV.size == 1
+  is_type_given = true # We first supposed a type is defined by user
+
+  if ARGV.length == 1
     doc = case ARGV.first
           when 'document' then Condom::Document.new
           when 'presentation' then Condom::Presentation.new
@@ -51,6 +53,7 @@ begin
           else Condom::Document.new
           end
   else
+    is_type_given = false
     doc = Condom::Document.new
   end
 
@@ -58,22 +61,26 @@ begin
 
   unless quiet
     # Ask for confirmation
+    format = "    %-17s [%s]: " # Question format
     puts "Enter the new value, or press ENTER for the default"
     puts
-    puts "The type can be #{types.map { |t| "'#{t}'" }.join ', '}."
-    puts "'document' is a classic LaTeX document, like an article, a report or a book."
 
-    doc_type = doc.class.to_s.split('::').last.downcase
-    printf "    %-17s [%s]: ", "type", doc_type
-    type = STDIN.gets.strip
-    doc = case type
-          when 'document' then Condom::Document.new(ops)
-          when 'presentation' then Condom::Presentation.new(ops)
-          when 'letter' then Condom::Letter.new(ops)
-          when 'cv' then Condom::CV.new(ops)
-          else raise "Bad syntax. Try \`#{File.basename $0} --help' for more information."
-          end unless type.empty? || type == doc_type
-    puts
+    unless is_type_given
+      puts "The type can be #{types.map { |t| "'#{t}'" }.join ', '}."
+      puts "'document' is a classic LaTeX document, like an article, a report or a book."
+
+      doc_type = doc.class.to_s.split('::').last.downcase
+      printf format, "type", doc_type
+      type = STDIN.gets.strip
+      doc = case type
+            when 'document' then Condom::Document.new(ops)
+            when 'presentation' then Condom::Presentation.new(ops)
+            when 'letter' then Condom::Letter.new(ops)
+            when 'cv' then Condom::CV.new(ops)
+            else raise "Bad syntax. Try \`#{File.basename $0} --help' for more information."
+            end unless type.empty? || type == doc_type
+      puts
+    end
 
     loop do
       ops = Hash.new
@@ -84,7 +91,7 @@ begin
                           when Array then value.join(', ')
                           else value
                           end
-        printf "    %-17s [%s]: ", key, displayed_value
+        printf format, key, displayed_value
         new_value = STDIN.gets.strip
         ops[key] = if value.is_a?(FalseClass) && new_value == "yes" then true
                    elsif value.is_a?(TrueClass) && new_value == "no" then false
