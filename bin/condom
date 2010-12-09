@@ -8,7 +8,7 @@ require 'condom'
 require 'optparse'
 
 quiet = false
-types = ['document', 'presentation', 'letter']
+types = ['document', 'presentation', 'letter', 'cv']
 ops = {:other_packages => []}
 
 ARGV.options do |o|
@@ -17,6 +17,7 @@ ARGV.options do |o|
     "    document                         'article', 'report' or other classes",
     "    presentation                     'beamer' class",
     "    letter                           'letter' class",
+    "    cv                               'moderncv' class",
     "\nAvailable options:")
   o.on("-n", "--filename=FILENAME",    String, "Define a file name")          { |v| ops[:filename] = v }
   o.on("-a", "--author=AUTHOR",        String, "Define the author")           { |v| ops[:author] = v }
@@ -39,12 +40,14 @@ begin
           when 'document' then Condom::Document.new
           when 'presentation' then Condom::Presentation.new
           when 'letter' then Condom::Letter.new
+          when 'cv' then Condom::CV.new
           else raise "Bad syntax. Try \`#{File.basename $0} --help' for more information."
           end
   elsif ops.has_key? :document_class
     doc = case ops[:document_class]
           when 'beamer' then Condom::Presentation.new
           when 'letter' then Condom::Letter.new
+          when 'moderncv' then Condom::CV.new
           else Condom::Document.new
           end
   else
@@ -56,6 +59,9 @@ begin
   unless quiet
     # Ask for confirmation
     puts "Enter the new value, or press ENTER for the default"
+    puts
+    puts "The type can be #{types.map { |t| "'#{t}'" }.join ', '}."
+    puts "'document' is a classic LaTeX document, like an article, a report or a book."
 
     doc_type = doc.class.to_s.split('::').last.downcase
     printf "    %-17s [%s]: ", "type", doc_type
@@ -64,6 +70,7 @@ begin
           when 'document' then Condom::Document.new(ops)
           when 'presentation' then Condom::Presentation.new(ops)
           when 'letter' then Condom::Letter.new(ops)
+          when 'cv' then Condom::CV.new(ops)
           else raise "Bad syntax. Try \`#{File.basename $0} --help' for more information."
           end unless type.empty? || type == doc_type
     puts
