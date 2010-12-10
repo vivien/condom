@@ -12,10 +12,10 @@ The compilation, cleanup and interaction with the sources
 are facilitated by the usage of a Makefile (see the Usage section below).
 
 The document types supported for the moment are:
-* Any classic type (article, report, book, ...)
-* Presentation (i.e. a beamer document)
-* Letter
-* CV
+* any classic type (article, report, book, ...);
+* presentation (i.e. a beamer document);
+* letter;
+* Curriculum Vitae (i.e. a moderncv document).
 
 == Installation
 
