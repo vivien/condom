@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 # Command line tool for Condom
 #
 # Author:: Vivien 'v0n' Didelot <vivien.didelot@gmail.com>
