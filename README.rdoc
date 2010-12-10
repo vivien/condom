@@ -27,7 +27,7 @@ This command needs Rubygems ('rubygems' package on Ubuntu).
 
 == Usage
 
-=== Executable
+=== The condom executable
 
 Condom gem provides a 'condom' shell command.
 
@@ -54,6 +54,9 @@ Condom gem provides a 'condom' shell command.
       -q, --quiet                      Don't ask any question
       -v, --version                    Print Condom version
 
+The type is just a shortcut (and maybe an alias) to define the LaTeX document class and choose the corresponding Condom class.
+The options are options common to every Condom classes. Specific options (such as "recipient" for the letter) will be prompt if --quiet option is not given.
+
 For example, you can easily generate a set of files for a presentation in a folder named 'My Presentation' using:
 
   condom presentation -o "My Presentation"
@@ -72,7 +75,7 @@ clean sources (remove .out, .toc, etc. files) with:
 archive the whole document with:
   $ make archive
 
-=== Lib
+=== The condom lib
 
 You can use the lib to create your document (e.g. using IRB).
 Here's a quick overview of its operation.
