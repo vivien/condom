@@ -75,7 +75,7 @@ clean sources (remove .out, .toc, etc. files) with:
 archive the whole document with:
   $ make archive
 
-=== The condom lib
+=== The Condom lib
 
 You can use the lib to create your document (e.g. using IRB).
 Here's a quick overview of its operation.
