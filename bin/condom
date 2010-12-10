@@ -7,14 +7,16 @@ require 'condom'
 require 'optparse'
 
 quiet = false
-types = ['classic', 'presentation', 'letter', 'cv']
 classic_classes = ['article', 'report', 'book']
+types = ['presentation', 'letter', 'cv'].unshift(classic_classes).flatten
 ops = {:other_packages => []}
 
 ARGV.options do |o|
   o.banner = "Usage: #{File.basename $0} [type] [options]\n"
   o.on_head("\nAvailable types:",
-    "    classic                          #{classic_classes.map { |c| "'#{c}'" }.join ', '} are considered as the classic type as well",
+    "    article (default)                i.e. the 'article' class",
+    "    report                           i.e. the 'report' class",
+    "    book                             i.e. the 'book' class",
     "    presentation                     i.e. the 'beamer' class",
     "    letter                           i.e. the 'letter' class",
     "    cv                               i.e. the 'moderncv' class",
@@ -36,7 +38,7 @@ begin
   error_msg = "Bad syntax. Try \`#{File.basename $0} --help' for more information."
   raise error_msg if ARGV.length > 1
 
-  is_type_given = true # We first supposed a type is defined by user
+  is_doc_class_explicitly_set = true # We first supposed a type is defined by user
 
   if ARGV.length == 1
     type = ARGV.first
@@ -59,7 +61,7 @@ begin
           else Condom::Classic.new
           end
   else
-    is_type_given = false
+    is_doc_class_explicitly_set = false
     doc = Condom::Classic.new
   end
 
@@ -71,11 +73,11 @@ begin
     puts "Enter the new value, or press ENTER for the default"
     puts
 
-    unless is_type_given
+    unless is_doc_class_explicitly_set
       puts "The type can be #{types.map { |t| "'#{t}'" }.join ', '}."
-      puts "#{classic_classes.map { |c| "'#{c}'" }.join ', '} are also considered as the 'classic' type."
 
       doc_type = doc.class.to_s.split('::').last.downcase
+      doc_type = doc.document_class if doc_type == "classic"
       printf format, "type", doc_type
       type = STDIN.gets.strip
       if classic_classes.include? type

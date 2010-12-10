@@ -34,7 +34,9 @@ Condom gem provides a 'condom' shell command.
   Usage: condom [type] [options]
   
   Available types:
-      classic                          'article', 'report', 'book' are considered as the classic type as well
+      article (default)                i.e. the 'article' class
+      report                           i.e. the 'report' class
+      book                             i.e. the 'book' class
       presentation                     i.e. the 'beamer' class
       letter                           i.e. the 'letter' class
       cv                               i.e. the 'moderncv' class

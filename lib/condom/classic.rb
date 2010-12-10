@@ -16,7 +16,7 @@ module Condom
 
         # The default options
         options = {
-          :filename => 'classic',
+          :filename => 'document',
           :listings => false,
           :fancyhdr => false,
           :graphics => false,
