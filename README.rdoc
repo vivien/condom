@@ -15,6 +15,7 @@ The document types supported for the moment are:
 * Any classic type (article, report, book, ...)
 * Presentation (i.e. a beamer document)
 * Letter
+* CV
 
 == Installation
 
@@ -118,7 +119,7 @@ This method will generate all files in the output directory.
 == Technique
 
 The following command:
-  $ condom classic -t "Condom makes LaTeX easier" -o here
+  $ condom report -t "Condom makes LaTeX easier" -o here
 
 may result the creation of these folders/files:
   $ tree here/
