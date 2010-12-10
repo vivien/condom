@@ -2,11 +2,11 @@
 
 * Added the BEER-WARE license.
 * Added a CV class.
-* Renamed 'flyleaf' into 'first-page'.
-* Renamed the 'Document' class (and type) into 'Classic'.
+* Renamed 'flyleaf.tex' into 'first-page.tex'.
+* Renamed the 'Document' class into 'Classic'.
 * The executable now:
-  * prompts for type confirmation only when it is not already defined by the user;
-  * considers 'article', 'report' and 'book' as the 'classic' type.
+  * understands 'article', 'report' and 'book' instead of 'document' type;
+  * prompts for type confirmation only when it is not already defined by the user.
 
 == 1.0.1
 
