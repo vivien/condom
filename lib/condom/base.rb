@@ -1,8 +1,6 @@
 require "fileutils"
 require "erb"
 
-#TODO Split author with space to get firstname and lastname?
-
 # The Condom module
 module Condom
   # The Base class.

@@ -1,7 +1,7 @@
 # The Condom module
 module Condom
   # The Classic class.
-  # This class is used to produce classic documents such as article, report, book, etc.
+  # This class is used to produce a classic document such as an article, a report or a book.
   class Classic < Condom::Base
     attr_accessor :listings, :fancyhdr, :graphics, :math, :pdf
 

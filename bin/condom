@@ -2,22 +2,22 @@
 #
 # Author:: Vivien 'v0n' Didelot <vivien.didelot@gmail.com>
 # See:: http://github.com/v0n/condom
-#TODO accept 'article|book|report' as a type (seen like 'classic').
 
 require 'condom'
 require 'optparse'
 
 quiet = false
 types = ['classic', 'presentation', 'letter', 'cv']
+classic_classes = ['article', 'report', 'book']
 ops = {:other_packages => []}
 
 ARGV.options do |o|
   o.banner = "Usage: #{File.basename $0} [type] [options]\n"
   o.on_head("\nAvailable types:",
-    "    classic                          'article', 'report' or other classes",
-    "    presentation                     'beamer' class",
-    "    letter                           'letter' class",
-    "    cv                               'moderncv' class",
+    "    classic                          #{classic_classes.map { |c| "'#{c}'" }.join ', '} are considered as the classic type as well",
+    "    presentation                     i.e. the 'beamer' class",
+    "    letter                           i.e. the 'letter' class",
+    "    cv                               i.e. the 'moderncv' class",
     "\nAvailable options:")
   o.on("-n", "--filename=FILENAME",    String, "Define a file name")          { |v| ops[:filename] = v }
   o.on("-a", "--author=AUTHOR",        String, "Define the author")           { |v| ops[:author] = v }
@@ -33,17 +33,23 @@ end
 
 begin
   ARGV.options.parse!
-  raise "Bad syntax. Try \`#{File.basename $0} --help' for more information." if ARGV.length > 1
+  error_msg = "Bad syntax. Try \`#{File.basename $0} --help' for more information."
+  raise error_msg if ARGV.length > 1
 
   is_type_given = true # We first supposed a type is defined by user
 
   if ARGV.length == 1
-    doc = case ARGV.first
+    type = ARGV.first
+    if classic_classes.include? type
+      ops[:document_class] = type
+      type = "classic"
+    end
+    doc = case type
           when 'classic' then Condom::Classic.new
           when 'presentation' then Condom::Presentation.new
           when 'letter' then Condom::Letter.new
           when 'cv' then Condom::CV.new
-          else raise "Bad syntax. Try \`#{File.basename $0} --help' for more information."
+          else raise error_msg
           end
   elsif ops.has_key? :document_class
     doc = case ops[:document_class]
@@ -67,18 +73,22 @@ begin
 
     unless is_type_given
       puts "The type can be #{types.map { |t| "'#{t}'" }.join ', '}."
-      puts "A 'classic' LaTeX document is an article, a report or a book."
+      puts "#{classic_classes.map { |c| "'#{c}'" }.join ', '} are also considered as the 'classic' type."
 
       doc_type = doc.class.to_s.split('::').last.downcase
       printf format, "type", doc_type
       type = STDIN.gets.strip
+      if classic_classes.include? type
+        ops[:document_class] = type
+        type = "classic"
+      end
       doc = case type
             when 'classic' then Condom::Classic.new(ops)
             when 'presentation' then Condom::Presentation.new(ops)
             when 'letter' then Condom::Letter.new(ops)
             when 'cv' then Condom::CV.new(ops)
-            else raise "Bad syntax. Try \`#{File.basename $0} --help' for more information."
-            end unless type.empty? || type == doc_type
+            else raise error_msg
+            end unless type.empty?
       puts
     end
 

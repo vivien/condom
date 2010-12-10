@@ -2,15 +2,17 @@
 
 * Added the BEER-WARE license.
 * Added a CV class.
-* The executable now prompts for type confirmation only when it is not already defined by the user.
 * Renamed 'flyleaf' into 'first-page'.
 * Renamed the 'Document' class (and type) into 'Classic'.
+* The executable now:
+  * prompts for type confirmation only when it is not already defined by the user;
+  * considers 'article', 'report' and 'book' as the 'classic' type.
 
 == 1.0.1
 
 * Added fixes for 1.9.* Ruby versions:
   * added a workaround for instance_variables method (see set_options in base.rb);
-  * used RUBY_PLATFORM instead of PLATFORM (removed in 1.9.1);
+  * used RUBY_PLATFORM instead of PLATFORM (removed in 1.9.1).
 * Renamed main.tex.erb to document.tex.erb.
 * Renamed lst-conf.tex.erb to listings.tex.erb.
 * Cleaned generated LaTeX code indentation.

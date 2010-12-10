@@ -22,7 +22,7 @@ Condom is available on Rubygems.org[http://rubygems.org/gems/condom] and can be 
 
   $ gem install condom
 
-This command needs Rubygems (rubygems package on Ubuntu).
+This command needs Rubygems ('rubygems' package on Ubuntu).
 
 == Usage
 
@@ -31,7 +31,25 @@ This command needs Rubygems (rubygems package on Ubuntu).
 Condom gem provides a 'condom' shell command.
 
   $ condom --help
-TODO print help here
+  Usage: condom [type] [options]
+  
+  Available types:
+      classic                          'article', 'report', 'book' are considered as the classic type as well
+      presentation                     i.e. the 'beamer' class
+      letter                           i.e. the 'letter' class
+      cv                               i.e. the 'moderncv' class
+  
+  Available options:
+      -n, --filename=FILENAME          Define a file name
+      -a, --author=AUTHOR              Define the author
+      -t, --title=TITLE                Define the title
+      -d, --date=DATE                  Define the date
+      -c, --document-class=CLASS       Define the document class
+      -l, --language=LANGUAGE          Define the language
+      -p, --package=PACKAGE            Add another package
+      -o, --directory=DIRECTORY        Define the output directory
+      -q, --quiet                      Don't ask any question
+      -v, --version                    Print Condom version
 
 For example, you can easily generate a set of files for a presentation in a folder named 'My Presentation' using:
 
@@ -56,7 +74,7 @@ archive the whole document with:
 You can use the lib to create your document (e.g. using IRB).
 Here's a quick overview of its operation.
 
-Create a document with:
+Create a document (article, report or book) with:
 
   doc = Condom::Classic.new
 
