@@ -1,3 +1,7 @@
+== 2.0.1
+
+Updated letter.tex.erb syntax to be compatible with 1.9.* Ruby versions.
+
 == 2.0.0
 
 * Added the BEER-WARE license.
