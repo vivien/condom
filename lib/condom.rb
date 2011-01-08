@@ -3,6 +3,9 @@
 # Author:: Vivien 'v0n' Didelot <vivien.didelot@gmail.com>
 # See:: http://github.com/v0n/condom
 
+# TODO Use a Rakefile instead of a Makefile
+# TODO Add 'tar' and 'zip' targets to the Rakefile
+
 require "condom/base"
 require "condom/classic"
 require "condom/presentation"
