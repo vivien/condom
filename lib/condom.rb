@@ -6,6 +6,7 @@
 # TODO Use a Rakefile instead of a Makefile
 # TODO Add 'tar' and 'zip' targets to the Rakefile
 # TODO Add \listoffigures if graphics
+# TODO Prepare a .gitignore file
 
 require "condom/base"
 require "condom/classic"
