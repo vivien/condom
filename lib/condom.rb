@@ -9,7 +9,9 @@
 # TODO Prepare a .gitignore file
 # TODO Rename first-page into titlepage
 # TODO Use http://en.wikibooks.org/wiki/LaTeX/Title_Creation instead of the current titlepage?
-# TODO Puts back the default lmodern font family
+# TODO Put back the default lmodern font family
+# TODO Add a README (how to compile, etc.)
+# TODO Add helpers? e.g. print \lstinputlisting{...} for every files in src/.
 
 require "condom/base"
 require "condom/classic"
