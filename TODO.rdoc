@@ -1,0 +1,11 @@
+== TODO
+
+ * Use a Rakefile instead of a Makefile
+ * Add 'tar' and 'zip' targets to the Rakefile
+ * Add \listoffigures if graphics
+ * Prepare a .gitignore file
+ * Rename first-page into titlepage
+ * Use http://en.wikibooks.org/wiki/LaTeX/Title_Creation instead of the current titlepage?
+ * Put back the default lmodern font family
+ * Add a README (how to compile, etc.)
+ * Add helpers? e.g. print \lstinputlisting{...} for every files in src/.
