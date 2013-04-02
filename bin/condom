@@ -3,7 +3,7 @@
 # Command line tool for Condom
 #
 # Author:: Vivien 'v0n' Didelot <vivien.didelot@gmail.com>
-# See:: http://github.com/v0n/condom
+# See:: http://github.com/vivien/condom
 
 require 'condom'
 require 'optparse'
