@@ -31,5 +31,5 @@ clean:
 	@rm -f $(FINAL_FILENAME).tar
 
 archive: all clean
-	@tar -cf $(FINAL_FILENAME).tar *
-	@echo "archived in $(FINAL_FILENAME).tar"
+	@tar -cf $(FINAL_FILENAME)-src.tar *
+	@echo "archived in $(FINAL_FILENAME)-src.tar"
