@@ -30,6 +30,10 @@ clean:
 	@rm -f inc/*.aux<% end %>
 	@rm -f $(FINAL_FILENAME).tar
 
+distclean: clean
+	@rm -f $(FINAL_FILENAME).pdf
+	@rm -f $(FINAL_FILENAME)-{src,dist}.tar
+
 archive: all clean
 	@tar -cf $(FINAL_FILENAME)-src.tar *
 	@echo "archived in $(FINAL_FILENAME)-src.tar"
