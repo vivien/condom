@@ -7,7 +7,7 @@
 FINAL_FILENAME=<%= @filename %>
 FILENAME=main
 VIEWER=xdg-open
-RUBBER=$(shell which rubber)
+RUBBER=$(shell which rubber 2>/dev/null)
 
 all: $(FILENAME).tex
 ifeq ($(RUBBER),)
