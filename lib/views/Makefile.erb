@@ -9,7 +9,9 @@ FILENAME=main
 VIEWER?=xdg-open
 RUBBER=$(shell which rubber 2>/dev/null)
 
-all: $(FILENAME).tex
+all: $(FINAL_FILENAME).pdf
+
+$(FINAL_FILENAME).pdf: $(FILENAME).tex
 ifeq ($(RUBBER),)
 	@pdflatex $(FILENAME).tex
 	@pdflatex $(FILENAME).tex
@@ -21,7 +23,7 @@ ifneq ($(FILENAME),$(FINAL_FILENAME))
 	@mv $(FILENAME).pdf $(FINAL_FILENAME).pdf
 endif
 
-view: all
+view: $(FINAL_FILENAME).pdf
 	@$(VIEWER) $(FINAL_FILENAME).pdf
 
 clean:
